@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SiteGuard AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b3b3c;--navy2:#165a57;--or:#ff7a1a;--bg:#f1efe8;--card:#fff;--tx:#1c2430;--mu:#6b7686;--bd:#e1e6ee;--ok:#2e9e5b;--rd:#d93636;--yl:#e9a800}
+body.dark{--bg:#0e1522;--card:#17233a;--tx:#e8edf5;--mu:#93a1b8;--bd:#2a3956}
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--tx)}
+button,input,select,textarea{font:inherit;color:inherit}
+.btn{background:var(--or);color:#fff;border:0;padding:9px 16px;border-radius:8px;cursor:pointer;font-weight:600}
+.btn.g{background:transparent;color:var(--tx);border:1px solid var(--bd)}.btn.r{background:var(--rd)}.btn.s{padding:5px 10px;font-size:13px}
+input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--card);margin:4px 0 12px}
+label{font-size:13px;font-weight:600;color:var(--mu)}
+/* ---- login ---- */
+#login{--t0:#082a2b;--t1:#0f4a48;--ln:#2a7a74;--hv:#ffc83d;min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr;font-family:"Barlow","Segoe UI",system-ui,sans-serif}
+.hero{position:relative;overflow:hidden;color:#fff;padding:44px 56px 0;display:flex;flex-direction:column;background:
+ linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px) 0 0/36px 36px,
+ linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px) 0 0/36px 36px,
+ linear-gradient(165deg,var(--t1),var(--t0))}
+.hero:after{content:'';position:absolute;top:0;right:0;width:12px;height:100%;background:repeating-linear-gradient(45deg,var(--hv) 0 16px,#0b2b2c 16px 32px)}
+.brand{display:flex;align-items:center;gap:10px;font:700 26px/1 "Barlow Condensed","Segoe UI",sans-serif;letter-spacing:.3px}.brand b{color:var(--or)}
+.brand svg{width:30px;height:30px;flex:none}
+.hero-copy{margin-top:9vh;max-width:470px}
+.hero h1{font:700 clamp(40px,5vw,62px)/.98 "Barlow Condensed","Segoe UI",sans-serif;margin:0 0 18px;letter-spacing:.2px}
+.hero p{margin:0;font-size:17px;line-height:1.55;color:#cfe3e1;max-width:400px}
+.skyline{margin-top:auto;width:100%;max-width:640px;display:block;align-self:center}
+.swing{transform-origin:250px 82px;animation:sway 5.5s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-3.2deg)}to{transform:rotate(3.2deg)}}
+.lbox{display:flex;align-items:center;justify-content:center;padding:32px 24px;background:#fbfcfb}
+.lbox form{width:100%;max-width:380px}
+.lbox h2{font:700 40px/1 "Barlow Condensed","Segoe UI",sans-serif;margin:0 0 6px;color:#0b2b2c}
+.lsub{margin:0 0 22px;color:#5d6d6d;font-size:15px}
+.lbox label{font-size:13.5px;font-weight:600;color:#3d4f4f}
+.fld{position:relative;margin:6px 0 16px}
+.fld>svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:19px;height:19px;color:#7d8f8e;pointer-events:none}
+.fld input{margin:0;height:48px;padding:0 64px 0 42px;border:1.5px solid #d3dcdb;border-radius:10px;background:#fff;font-size:15.5px;transition:border-color .15s,box-shadow .15s}
+.fld input:focus{outline:0;border-color:var(--or);box-shadow:0 0 0 4px rgba(255,122,26,.18)}
+.fshow{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;color:#0f4a48;font-weight:600;font-size:13px;padding:8px 10px;border-radius:8px;cursor:pointer}
+.fshow:hover{background:#eef3f2}.fshow:focus-visible{outline:2px solid var(--or)}
+.lopt{display:flex;align-items:center;justify-content:space-between;margin:2px 0 18px;font-size:14px}
+.lopt label{display:flex;align-items:center;gap:8px;font-weight:500;cursor:pointer}.lopt input{width:auto;margin:0;accent-color:var(--or);width:16px;height:16px}
+.lopt a{color:#b84f00;font-weight:600;text-decoration:none}.lopt a:hover{text-decoration:underline}
+.lbtn{width:100%;height:50px;border:0;border-radius:10px;background:var(--or);color:#fff;font:700 17px "Barlow",sans-serif;cursor:pointer;box-shadow:0 6px 16px -6px rgba(255,122,26,.7);transition:transform .15s,box-shadow .15s,background .15s}
+.lbtn:hover{background:#f26d0c;transform:translateY(-1px);box-shadow:0 10px 20px -8px rgba(255,122,26,.8)}.lbtn:focus-visible{outline:3px solid #0f4a48;outline-offset:2px}
+.lnote{margin-top:18px;padding:10px 12px 10px 16px;font-size:13px;line-height:1.45;color:#5b4300;background:#fff8e0;border-radius:8px;position:relative}
+.lnote:before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:8px 0 0 8px;background:repeating-linear-gradient(45deg,var(--hv) 0 6px,#2a2a2a 6px 12px)}
+#login .err{margin:-6px 0 10px}
+
+.logo{font-weight:800;font-size:22px}.logo b{color:var(--or)}
+.demo{background:#fff4e5;border-left:4px solid var(--or);padding:8px 10px;font-size:12px;color:#6a4200;margin:10px 0;border-radius:4px}
+#app{display:none;min-height:100vh}
+aside{position:fixed;left:0;top:0;bottom:0;width:230px;background:var(--navy);color:#cfd8e6;padding:18px 12px;z-index:20;transition:.25s}
+aside .logo{color:#fff;padding:0 8px 18px}
+aside a{display:block;padding:11px 12px;border-radius:8px;cursor:pointer;margin:2px 0}
+aside a:hover{background:var(--navy2)}aside a.on{background:var(--or);color:#fff;font-weight:600}
+main{margin-left:230px;padding:20px 26px}.top{background:var(--card);border-bottom:3px solid var(--or);border-radius:10px;padding:10px 16px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:18px}.top .sp{flex:1}
+.ham{display:none;background:none;border:0;font-size:24px;cursor:pointer}
+.av{width:40px;height:40px;border-radius:50%;background:var(--or);color:#fff;display:grid;place-items:center;font-weight:700}
+.av.big{width:84px;height:84px;font-size:30px}
+.bell{position:relative;cursor:pointer;font-size:20px}.bell i{position:absolute;top:-6px;right:-8px;background:var(--rd);color:#fff;font:700 10px sans-serif;border-radius:9px;padding:2px 5px}
+#np{display:none;position:absolute;right:26px;top:64px;width:280px;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px;z-index:30;box-shadow:0 8px 24px #0003;font-size:13px}
+.pg{display:none;animation:fi .25s}.pg.on{display:block}@keyframes fi{from{opacity:0;transform:translateY(6px)}}
+h2{margin:0 0 14px}h3{margin:0 0 10px;font-size:16px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:16px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px}
+.stat b{display:block;font-size:26px}.stat span{color:var(--mu);font-size:13px}
+.ring{width:110px;height:110px;border-radius:50%;display:grid;place-items:center;flex:none}
+.ring div{width:82px;height:82px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-weight:800;font-size:20px}
+.bar{height:9px;background:var(--bd);border-radius:5px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:var(--ok)}
+.row{display:flex;gap:14px;align-items:center}.wrap{flex-wrap:wrap}
+.task{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)}.task input{width:auto;margin:0}.task.d span{text-decoration:line-through;color:var(--mu)}
+.chart{display:flex;align-items:flex-end;gap:6px;height:130px}.chart div{flex:1;text-align:center;font-size:10px;color:var(--mu);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.chart em{display:block;background:var(--or);border-radius:4px 4px 0 0;min-height:2px}
+.tag{padding:2px 9px;border-radius:12px;font-size:12px;font-weight:700;color:#fff;display:inline-block}
+.Pending{background:var(--yl)}.Resolved,.Low{background:var(--ok)}.Rejected,.Critical,.High{background:var(--rd)}.Medium{background:var(--or)}.Under{background:var(--navy2)}
+.chat{max-height:300px;overflow:auto;margin-top:12px}.msg{padding:9px 12px;border-radius:10px;margin:6px 0;white-space:pre-wrap;font-size:14px;max-width:88%}
+.msg.u{background:var(--navy);color:#fff;margin-left:auto}.msg.a{background:var(--bg)}.msg.e{background:#fde8e8;color:#8a1c1c}
+.hc{cursor:pointer;text-align:center;font-weight:600;transition:.15s}.hc:hover,.hc.on{border-color:var(--or);transform:translateY(-2px)}.hc .ic{font-size:30px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--bd)}.tw{overflow-x:auto}
+.aibox{border:1px solid var(--bd);border-left:5px solid var(--or);border-radius:10px;padding:14px 16px;margin:0 0 14px;background:var(--bg)}
+.aihead{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.aihead b{flex:1}
+.spin{width:16px;height:16px;border:3px solid var(--bd);border-top-color:var(--or);border-radius:50%;animation:rot .8s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+.aisec{margin-top:12px}.aisec h4{margin:0 0 4px;font-size:14px}.aisec ul,.aisec ol{margin:4px 0 0;padding-left:20px;font-size:14px;line-height:1.55}
+.aimis{margin-top:12px;padding:14px 16px;border-radius:10px;background:#fde8e8;border:1px solid #f3b4b4;border-left:5px solid var(--rd);color:#8a1c1c;font-weight:700;font-size:15px;line-height:1.5}body.dark .aimis{background:#3b1a1a;color:#ffb4b4;border-color:#7a2d2d}
+.aipanel{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--card);border:1px solid var(--bd);border-left:5px solid var(--navy2)}.aipanel.so{border-left-color:var(--ok)}.aipanel h4{margin:0 0 8px;font-size:15px}.aipanel b{font-size:13px}
+.aifirst{margin-top:12px;padding:10px 12px;border-radius:8px;background:#fff4e5;border-left:4px solid var(--or);color:#6a4200;font-size:14px}body.dark .aifirst{background:#3a2a14;color:#ffd9a8}
+.mu{color:var(--mu);font-size:13px}.err{color:var(--rd);font-size:13px;min-height:18px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#999;margin-right:6px}
+#toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:#fff;padding:12px 18px;border-radius:10px;display:none;z-index:50;max-width:320px}
+.modal{display:none;position:fixed;inset:0;background:#0007;z-index:40;align-items:center;justify-content:center;padding:16px}.modal.on{display:flex}
+.modal .card{width:100%;max-width:480px;max-height:90vh;overflow:auto}
+@media(prefers-reduced-motion:reduce){.swing{animation:none}.lbtn{transition:none}}
+@media(max-width:860px){#login{grid-template-columns:1fr}.hero{padding:26px 24px 22px}.hero-copy{margin-top:20px}.hero h1{font-size:34px;margin-bottom:8px}.hero p,.skyline{display:none}.hero:after{width:100%;height:8px;top:auto;bottom:0}.lbox{padding:28px 20px 40px}aside{transform:translateX(-100%)}aside.open{transform:none}main{margin-left:0;padding:14px}.ham{display:block}}
+</style></head><body>
+
+<!-- LOGIN (open demo – no credential check) -->
+<section id="login">
+ <div class="hero">
+  <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 4 7v8c0 7.4 5 13.2 12 15 7-1.8 12-7.6 12-15V7z" fill="#ff7a1a"/><path d="M9.5 17.5a6.5 6 0 0 1 13 0z" fill="#ffc83d"/><rect x="8" y="17.5" width="16" height="2.6" rx="1.3" fill="#ffc83d"/><rect x="14.8" y="10.2" width="2.4" height="7.3" fill="#e5a800"/></svg><span>Site<b>Guard</b> AI</span></div>
+  <div class="hero-copy"><h1>Every worker home safe, every day.</h1>
+   <p>Report hazards, finish toolbox talks and get AI safety advice from a photo of your site.</p></div>
+  <svg class="skyline" viewBox="0 0 640 380" fill="none" stroke-linecap="round" aria-hidden="true">
+   <g stroke="#2f8a83" stroke-width="2">
+    <path d="M60 340V160M140 340V160M220 340V160M300 340V160"/>
+    <path d="M60 280H300M60 220H300M60 160H300"/>
+    <path d="M60 340 140 280M140 340 220 280M220 340 300 280M60 280 140 220M140 280 220 220M60 220 140 160" stroke-width="1.4" opacity=".6"/>
+   </g>
+   <rect x="62" y="282" width="76" height="56" fill="#2f8a83" opacity=".28"/><rect x="142" y="282" width="76" height="56" fill="#2f8a83" opacity=".16"/>
+   <g stroke="#ff7a1a">
+    <path d="M432 340V76M448 340V76" stroke-width="3"/>
+    <path d="M440 340V76" stroke-width="16" stroke-dasharray="2 16" opacity=".85"/>
+    <path d="M180 68H540M180 78H540" stroke-width="3"/>
+    <path d="M180 73H540" stroke-width="10" stroke-dasharray="2 18" opacity=".85"/>
+    <path d="M432 76 440 30 448 76M440 30 190 68M440 30 540 68" stroke-width="2"/>
+   </g>
+   <rect x="518" y="78" width="28" height="26" rx="2" fill="#ffc83d"/>
+   <rect x="238" y="78" width="24" height="9" rx="2" fill="#ff7a1a"/>
+   <g class="swing"><path d="M250 87V186" stroke="#cfe3e1" stroke-width="1.6"/><circle cx="250" cy="190" r="4" stroke="#cfe3e1" stroke-width="1.6"/><path d="M250 194 235 218M250 194 265 218" stroke="#cfe3e1" stroke-width="1.4"/>
+    <path d="M232 236a18 18 0 0 1 36 0z" fill="#ffc83d"/><rect x="247" y="219" width="6" height="17" fill="#e5a800"/><rect x="225" y="236" width="50" height="5" rx="2.5" fill="#ffc83d"/></g>
+   <path d="M20 340H620" stroke="#ffc83d" stroke-width="3"/>
+   <path d="M20 346H620" stroke="#ffc83d" stroke-width="6" stroke-dasharray="14 14" opacity=".55"/>
+  </svg>
+ </div>
+ <div class="lbox"><form id="lf" novalidate><h2>Welcome back</h2><p class="lsub">Press any key to start your shift.</p>
+  <label for="lu">Username or Employee ID</label>
+  <div class="fld"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><input id="lu" autocomplete="username" placeholder="EMP-1042"></div>
+  <label for="lp">Password</label>
+  <div class="fld"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><input id="lp" type="password" placeholder="Your password" autocomplete="current-password"><button type="button" class="fshow" id="lsh">Show</button></div>
+  <div class="lopt"><label><input type="checkbox" id="lr"> Remember me</label><a href="#" id="lfp">Forgot password?</a></div>
+  <div class="err" id="le"></div><button class="lbtn">Log in</button>
+  <div class="lnote"><b>Open access.</b> Press any key or select Log in. Nothing is checked.</div></form></div>
+</section>
+
+<div id="app">
+<aside id="sb"><div class="logo">Site<b>Guard</b> AI</div>
+ <a data-p="home" class="on">🏠 Home</a><a data-p="report">⚠️ Report Hazard</a><a data-p="my">📊 My Reports</a><a data-p="talks">🎓 Toolbox Talks</a><a data-p="profile">👤 Profile</a><a id="lo">🚪 Logout</a></aside>
+<main>
+ <div class="top"><button class="ham" id="hb">☰</button><div><b id="hello"></b><div class="mu" id="clock"></div></div><div class="sp"></div>
+  <div class="bell" id="bell">🔔<i id="bc">0</i></div><div class="av" id="tav"></div></div>
+ <div id="np"></div>
+
+ <!-- HOME -->
+ <section class="pg on" id="home">
+  <div class="card row wrap" style="margin-bottom:16px"><div class="av big" id="hav"></div><div id="winfo" style="flex:1;min-width:220px"></div></div>
+  <div class="g4" id="hstats"></div>
+  <div class="g2">
+   <div class="card"><h3>Monthly Attendance</h3><div class="row"><div class="ring" id="ring"><div id="rp"></div></div><div class="mu" id="att" style="line-height:1.9"></div></div></div>
+   <div class="card"><h3>Last Week's Safety Report</h3><div id="lw" class="row wrap" style="gap:18px"></div><div class="chart" id="lwc" style="height:90px;margin-top:10px"></div></div>
+  </div>
+  <div class="g2">
+   <div class="card"><h3>Today's Work</h3><div class="mu" id="tsum"></div><div class="bar"><i id="tbar"></i></div><div id="tl"></div></div>
+   <div class="card"><h3>Remaining This Month</h3><div id="ml"></div></div>
+  </div>
+  <div class="card"><h3>Ask SiteGuard AI – Your Construction Safety Assistant</h3>
+   <div class="row"><input id="q" style="margin:0" placeholder="e.g. What PPE is required for working at height?"><button class="btn" id="ask">Ask</button></div>
+   <div class="mu" style="margin-top:6px">Try: PPE, electrical safety, fire safety, first aid, emergency procedures.</div><div class="chat" id="chat"></div></div>
+ </section>
+
+ <!-- REPORT HAZARD -->
+ <section class="pg" id="report"><h2>Report a Workplace Hazard</h2>
+  <input id="hs" placeholder="Search hazard categories…"><div class="g4" id="hcats"></div><div class="mu" id="hempty" style="display:none">No category matches your search.</div>
+  <div class="card" id="hform"><h3 id="fh">Report a Hazard</h3><form id="hf">
+   <label>Upload a photo – AI will analyze it</label><input id="fi" type="file"><img id="fp" alt="Selected hazard photo" style="display:none;max-width:100%;max-height:320px;border-radius:10px;margin:0 0 12px">
+   <div class="aibox" id="aib" style="display:none"><div class="aihead"><span class="spin" id="aisp"></span><b id="aist">AI analysis</b><span class="tag" id="airk" style="display:none"></span><button type="button" class="btn g s" id="aire">Analyze again</button></div><div id="aires"></div></div>
+   <label>Description (temporary note, optional)</label><textarea id="fd" rows="3" placeholder="e.g. Guardrail missing on 3rd floor east edge"></textarea>
+   <div class="err" id="fe"></div><button class="btn">Submit Report</button></form></div>
+  <h3 style="margin-top:20px">Recent Submissions</h3><div class="card tw" id="rl2"></div></section>
+
+ <!-- MY REPORTS -->
+ <section class="pg" id="my"><div class="row wrap"><h2 style="flex:1">My Work Performance &amp; Annual Report</h2><select id="yr" style="width:110px"><option>2026</option><option>2025</option></select></div>
+  <div class="g4" id="ysum"></div>
+  <div class="g2"><div class="card"><h3>Annual Attendance (days)</h3><div class="chart" id="c1"></div></div><div class="card"><h3>Monthly Task Completion</h3><div class="chart" id="c2"></div></div>
+  <div class="card"><h3>Work Performance %</h3><div class="chart" id="c3"></div></div><div class="card"><h3>Safety Reports Filed</h3><div class="chart" id="c4"></div></div></div>
+  <div class="g2"><div class="card"><h3>Salary &amp; Increment <span class="mu">(sample information)</span></h3><table><tr><td>Current monthly salary</td><td>₹34,500</td></tr><tr><td>Previous salary</td><td>₹31,800</td></tr><tr><td>Last increment</td><td>₹2,700 (8.5%)</td></tr><tr><td>Next review</td><td>01 Apr 2027</td></tr></table></div>
+  <div class="card"><h3>Leave Management</h3><div id="lv"></div><button class="btn" id="al" style="margin-top:10px">Apply for Leave</button></div></div>
+  <div class="card tw"><h3>Performance History</h3><table><thead><tr><th>Month</th><th>Attendance</th><th>Tasks</th><th>Performance</th><th>Remarks</th></tr></thead><tbody id="ph"></tbody></table></div></section>
+
+ <!-- TOOLBOX TALKS -->
+ <section class="pg" id="talks"><h2>Daily Toolbox Talks &amp; Safety Awareness</h2>
+  <div class="card" style="margin-bottom:16px;border-left:4px solid var(--or)"><b>Daily Safety Reminder:</b> <span id="tip"></span></div>
+  <div class="row wrap"><input id="ts" style="flex:2;min-width:200px" placeholder="Search toolbox talks…"><select id="tc" style="flex:1;min-width:150px"><option value="">All categories</option><option>Height &amp; Fall</option><option>Electrical &amp; Fire</option><option>Equipment</option><option>Health &amp; PPE</option><option>Site Practice</option></select></div>
+  <div class="mu" id="tp"></div><div class="bar"><i id="tpb"></i></div><div class="g2" id="tg" style="margin-top:14px"></div></section>
+
+ <!-- PROFILE -->
+ <section class="pg" id="profile"><h2>Profile</h2><div class="g2">
+  <div class="card"><h3>Personal Details</h3><table id="pd"></table><button class="btn" id="ep" style="margin-top:12px">Edit Profile</button></div>
+  <div class="card"><h3>Account Settings</h3>
+   <label>Theme</label><select id="th"><option value="light">Light</option><option value="dark">Dark</option></select>
+   <label>Language</label><select id="lg"><option>English</option><option>हिन्दी</option><option>ગુજરાતી</option></select>
+   <label class="row"><input type="checkbox" id="nt" style="width:auto;margin:0"> Notifications on</label><br>
+   <label>Change Password (demo)</label><input id="np1" type="password" placeholder="New password (min 6)"><button class="btn s" id="cp">Change Password</button>
+   <hr style="border:0;border-top:1px solid var(--bd);margin:14px 0"><button class="btn r s" id="rs">Reset Demo Data</button> <button class="btn g s" id="lo2">Logout</button></div></div>
+  <div class="card"><h3>SiteGuard AI – API Settings</h3>
+   <label for="ak">OpenRouter API Key</label>
+   <div class="row"><input id="ak" type="password" autocomplete="off" spellcheck="false" placeholder="sk-or-v1-…" style="margin:4px 0 12px"><button type="button" class="btn g s" id="ash" style="margin-bottom:8px">Show</button></div>
+   <div class="row wrap" style="margin-bottom:12px"><button type="button" class="btn s" id="asv">Save API Key</button><button type="button" class="btn s" id="atst" style="background:var(--navy2)">Test Connection</button><button type="button" class="btn g s" id="arm">Reset to default key</button></div>
+   <div style="padding:10px 12px;border:1px solid var(--bd);border-radius:10px"><span class="dot" id="adot"></span><b id="ast">Not tested yet</b> <span class="mu" id="alt"></span><div class="err" id="aerr" style="margin-top:4px"></div></div>
+   <label style="display:block;margin-top:14px">AI Model (reads photos and text)</label><select id="am"><option value="">Loading models…</option></select>
+   <div class="mu">The key is saved in this browser. Anyone with access to this browser or file can read it.</div></div></section>
+</main></div>
+
+<div class="modal" id="m"><div class="card" id="mb"></div></div><div id="toast"></div>
+
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const $=id=>document.getElementById(id),SK="siteguard_v1";
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+let tt;function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(tt);tt=setTimeout(()=>t.style.display="none",3000)}
+const DEF=()=>({user:{name:"Rajesh Kumar",id:"EMP-1042",pass:"site123",pos:"Scaffolding Supervisor",dept:"Structural Works",site:"Riverside Tower – Phase 2",join:"2021-03-15",status:"Active",email:"rajesh.kumar@example.com",phone:"+91 98765 43210",emerg:"Sunita Kumar – +91 98765 00011"},
+ tasks:[["Inspect scaffold ties – Block B",0],["Toolbox talk with crew",0],["Check harness anchor points",1],["Clear walkways, level 3",0]],
+ month:[["Weekly crane signal check",0],["Fire extinguisher inspection",0],["Edge-protection audit",0],["Update PPE register",0]],
+ reports:[{id:"HZ-240918-A1",cat:"Fall from Height Hazard",title:"Loose guardrail, level 4",desc:"Guardrail bracket loose near east edge.",loc:"Block B L4",risk:"High",dt:"2026-10-24T09:30",act:"Area cordoned off.",status:"Under Investigation"}],
+ talks:[],leaves:[],used:6,theme:"light",model:"",notifs:["Welcome to SiteGuard AI (demo)","Toolbox talk reminder: Working at Height Safety"],unread:2,notif:true});
+let S;try{S=JSON.parse(localStorage.getItem(SK))||DEF()}catch(e){S=DEF()}
+const save=()=>{try{localStorage.setItem(SK,JSON.stringify(S))}catch(e){toast("Storage full – remove a large image.")}};
+
+/* ---------- data ---------- */
+const HC=[["Fall from Height Hazard","🪜"],["Electrical Hazard","⚡"],["Struck-by and Machinery Hazard","🏗️"],["Structural Collapse Hazard","🧱"],["Manual Handling Hazard","📦"],["Noise Hazard","🔊"],["Dust and Respiratory Hazard","😷"],["Fire and Chemical Hazard","🔥"]];
+const TK=[
+["Working at Height Safety","Height & Fall","Prevent falls from scaffolds, ladders and edges.",["Inspect scaffolds before use","Wear harness tied to a rated anchor","Keep 3 points of contact on ladders"],"Never work at height in high wind or on wet surfaces.","Harness, helmet, non-slip boots",["Anchor checked","Guardrails in place","Area below barricaded"],4],
+["Electrical Safety","Electrical & Fire","Avoid shock and arc injuries on site.",["Treat every wire as live","Use RCD-protected leads","Lock out and tag out before repair"],"Keep cables off wet ground; only authorised staff touch panels.","Insulated gloves, safety boots, helmet",["Leads undamaged","RCD tested","LOTO applied"],4],
+["Proper PPE Usage","Health & PPE","Choose, wear and care for protective equipment.",["Check PPE before each shift","Replace cracked helmets","Wear PPE for the entire task"],"Damaged PPE gives false confidence – replace it.","Helmet, glasses, gloves, boots, hi-vis",["PPE inspected","Fits correctly","Spares available"],3],
+["Fire Prevention and Emergency Response","Electrical & Fire","Stop fires early and evacuate safely.",["Store fuels in approved cabinets","Know the assembly point","Use PASS method on small fires"],"Never fight a fire that blocks your exit. Call your supervisor and emergency services.","Fire-retardant clothing, gloves",["Extinguishers charged","Exits clear","Hot-work permit issued"],5],
+["Safe Operation of Machinery","Equipment","Work safely around and on plant.",["Only trained operators drive plant","Stay out of swing radius","Use a banksman when reversing"],"Never ride on equipment not designed for passengers.","Hi-vis, helmet, hearing protection",["Pre-start check done","Guards fitted","Signals agreed"],5],
+["Manual Handling Techniques","Health & PPE","Lift and carry without injury.",["Plan the route first","Bend knees, keep load close","Team-lift heavy items"],"Do not twist while carrying; use trolleys where possible.","Gloves, safety boots",["Load assessed","Path clear","Help arranged"],3],
+["Dust and Respiratory Protection","Health & PPE","Control silica and dust exposure.",["Wet-cut materials","Use extraction","Wear a fitted respirator"],"Dry sweeping raises dust – use wet methods or vacuum.","FFP3 respirator, goggles",["Respirator fit-tested","Water supply ready","Area ventilated"],4],
+["Chemical Handling Safety","Health & PPE","Store and use chemicals correctly.",["Read the safety data sheet","Label all containers","Never mix chemicals"],"Know the eyewash station location before you begin.","Chemical gloves, goggles, apron",["SDS available","Containers labelled","Spill kit nearby"],4],
+["Housekeeping and Workplace Safety","Site Practice","A tidy site prevents trips and fires.",["Clear debris at shift end","Stack materials stably","Mark spills at once"],"Keep walkways and exits clear at all times.","Boots, gloves, hi-vis",["Walkways clear","Waste sorted","Nails removed"],3],
+["Excavation and Trench Safety","Equipment","Prevent collapse and engulfment.",["Shore trenches deeper than 1.2 m","Keep spoil 1 m from the edge","Provide safe ladder access"],"Never enter a trench that has not been inspected today.","Helmet, hi-vis, boots, gloves",["Shoring checked","Utilities located","Ladder every 7 m"],5]];
+const TIPS=["Inspect your harness before every climb.","Stop work if the weather turns unsafe.","Report near misses – they prevent real injuries.","Keep three points of contact on ladders.","Hydrate: heat illness slows judgement."];
+const YD={2026:{att:[24,23,25,22,24,23,25,24,22,23,0,0],tk:[40,38,45,36,42,41,47,44,39,43,0,0],pf:[82,85,88,84,87,86,91,89,85,88,0,0],hz:[1,0,2,1,1,0,2,1,1,2,0,0]},
+ 2025:{att:[22,21,24,23,22,24,23,25,23,24,22,24],tk:[35,33,38,36,34,40,39,41,37,40,36,42],pf:[78,76,81,80,79,84,83,86,82,85,81,87],hz:[0,1,1,0,2,1,0,1,1,1,0,1]}};
+
+/* ---------- login ---------- */
+const login=()=>{$("login").style.display="none";$("app").style.display="block";init()};
+$("lsh").onclick=()=>{const p=$("lp");p.type=p.type=="password"?"text":"password";$("lsh").textContent=p.type=="password"?"Show":"Hide"};
+$("lfp").onclick=e=>{e.preventDefault();toast("No password needed – press any key to enter.")};
+/* Open demo: no credential check. Pressing any key, or the Log in button, opens the dashboard. */
+const openApp=()=>{document.removeEventListener("keydown",anyKey);const u=$("lu").value.trim();if($("lr").checked&&u)localStorage.setItem("sg_rem",u);else localStorage.removeItem("sg_rem");sessionStorage.setItem("sg_in","1");login()};
+const anyKey=()=>openApp();
+$("lf").onsubmit=e=>{e.preventDefault();openApp()};
+document.addEventListener("keydown",anyKey);
+$("lu").value=localStorage.getItem("sg_rem")||"";if($("lu").value)$("lr").checked=true;
+const logout=()=>{sessionStorage.removeItem("sg_in");location.reload()};$("lo").onclick=logout;$("lo2").onclick=logout;
+
+/* ---------- navigation ---------- */
+function go(p){document.querySelectorAll(".pg").forEach(x=>x.classList.toggle("on",x.id==p));
+ document.querySelectorAll("aside a[data-p]").forEach(a=>a.classList.toggle("on",a.dataset.p==p));$("sb").classList.remove("open");render()}
+document.querySelectorAll("aside a[data-p]").forEach(a=>a.onclick=()=>go(a.dataset.p));
+$("hb").onclick=()=>$("sb").classList.toggle("open");
+setInterval(()=>{if($("clock"))$("clock").textContent=new Date().toLocaleString([], {dateStyle:"full",timeStyle:"short"})},1000);
+function notify(m){S.notifs.unshift(m);S.unread++;save();bell()}
+function bell(){$("bc").textContent=S.unread;$("bc").style.display=S.unread?"":"none"}
+$("bell").onclick=()=>{const n=$("np");const o=n.style.display=="block";n.innerHTML=S.notifs.slice(0,6).map(x=>`<div style="padding:6px 0;border-bottom:1px solid var(--bd)">${esc(x)}</div>`).join("")||"No notifications.";n.style.display=o?"none":"block";S.unread=0;save();bell()};
+
+/* ---------- charts (pure CSS) ---------- */
+const bars=(el,vals,max,suffix="")=>$(el).innerHTML=vals.map((v,i)=>`<div title="${MON[i]}: ${v}${suffix}"><em style="height:${Math.round(v/max*100)}%"></em>${MON[i]}</div>`).join("");
+
+/* ---------- render ---------- */
+function render(){const u=S.user,ini=u.name.split(" ").map(x=>x[0]).join("");
+ $("hello").textContent="Hello, "+u.name.split(" ")[0];$("tav").textContent=ini;$("hav").textContent=ini;bell();
+ document.body.classList.toggle("dark",S.theme=="dark");
+ $("winfo").innerHTML=`<h3 style="margin:0">${esc(u.name)} <span class="tag ${u.status=="Active"?"Resolved":"Pending"}">${u.status}</span></h3><div class="mu" style="line-height:1.8">${esc(u.id)} · ${esc(u.pos)} · ${esc(u.dept)}<br>${esc(u.site)} · Joined ${u.join}</div>`;
+ const td=S.tasks.filter(t=>t[1]).length,tm=Math.round(td/S.tasks.length*100),tk=S.talks.length;
+ $("hstats").innerHTML=[["Hazards reported",S.reports.length],["Resolved",S.reports.filter(r=>r.status=="Resolved").length],["Tasks done today",td+"/"+S.tasks.length],["Talks completed",tk+"/10"]].map(x=>`<div class="card stat"><b>${x[1]}</b><span>${x[0]}</span></div>`).join("");
+ const W=26,P=22,L=3,A=1,pc=Math.round(P/W*100);
+ $("ring").style.background=`conic-gradient(var(--ok) ${pc*3.6}deg,var(--bd) 0)`;$("rp").textContent=pc+"%";
+ $("att").innerHTML=`Working days: <b>${W}</b><br>Present: <b>${P}</b> · Absent: <b>${A}</b><br>Leave: <b>${L}</b>`;
+ const pend=S.reports.filter(r=>r.status=="Pending"||r.status=="Under Investigation").length;
+ $("lw").innerHTML=[["Reported",S.reports.length+3],["Resolved",S.reports.filter(r=>r.status=="Resolved").length+3],["Pending",pend],["Meetings",2],["Talks",tk]].map(x=>`<div class="stat"><b>${x[1]}</b><span>${x[0]}</span></div>`).join("");
+ $("lwc").innerHTML=["Mon","Tue","Wed","Thu","Fri","Sat"].map((d,i)=>`<div><em style="height:${[40,70,30,90,55,20][i]}%"></em>${d}</div>`).join("");
+ $("tsum").textContent=`${td} completed · ${S.tasks.length-td} remaining · ${tm}%`;$("tbar").style.width=tm+"%";
+ const tl=(arr,k)=>arr.map((t,i)=>`<label class="task ${t[1]?"d":""}"><input type="checkbox" ${t[1]?"checked":""} data-k="${k}" data-i="${i}"><span>${esc(t[0])}</span></label>`).join("");
+ $("tl").innerHTML=tl(S.tasks,"tasks");$("ml").innerHTML=tl(S.month,"month")||"<div class='mu'>All monthly tasks done.</div>";
+ document.querySelectorAll(".task input").forEach(c=>c.onchange=()=>{S[c.dataset.k][c.dataset.i][1]=c.checked?1:0;save();if(c.checked)notify("Task completed ✔");render()});
+ renderHazards();renderYear();renderTalks();renderProfile()}
+
+/* ---------- OpenRouter: built-in key, models, shared caller ---------- */
+const DEF_KEY="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";const getKey=()=>{try{return localStorage.getItem("sg_key")||DEF_KEY}catch(e){return DEF_KEY}};
+const OR_URL="https://openrouter.ai/api/v1";
+const VPREF=["google/gemini-2.5-flash","google/gemini-2.0-flash-001","openai/gpt-4o-mini","google/gemini-flash-1.5","anthropic/claude-3.5-haiku"];
+let MODELS=[],MP=null;
+function fillModels(){const keep=S.model;
+ $("am").innerHTML=MODELS.map(m=>`<option value="${esc(m.id)}">${esc(m.name||m.id)}</option>`).join("");
+ if(!MODELS.some(m=>m.id==keep)){const id=VPREF.find(i=>MODELS.some(m=>m.id==i));
+  const m=id?MODELS.find(x=>x.id==id):(MODELS.find(x=>/flash|mini|haiku/i.test(x.id)&&!/:free/.test(x.id))||MODELS[0]);S.model=m.id;save()}
+ $("am").value=S.model}
+function loadModels(){return MP||(MP=(async()=>{
+ try{const r=await fetch(OR_URL+"/models",{headers:{Authorization:"Bearer "+getKey()}});if(!r.ok)throw 0;const d=await r.json();
+  const v=(d.data||[]).filter(m=>{const a=m.architecture||{};return(a.input_modalities||[]).includes("image")&&(a.output_modalities||["text"]).includes("text")});
+  if(!v.length)throw 0;
+  MODELS=v.sort((a,b)=>{const x=VPREF.indexOf(a.id),y=VPREF.indexOf(b.id);return(x<0?99:x)-(y<0?99:y)||String(a.name).localeCompare(String(b.name))})}
+ catch(e){MODELS=[{id:"google/gemini-2.0-flash-001",name:"Gemini 2.0 Flash"}]}
+ fillModels()})())}
+async function callAI(messages,max,temp){await loadModels();
+ let r;try{r=await fetch(OR_URL+"/chat/completions",{method:"POST",headers:{Authorization:"Bearer "+getKey(),"Content-Type":"application/json"},body:JSON.stringify({model:S.model,messages,max_tokens:max||1000,temperature:temp==null?.3:temp})})}
+ catch(e){throw new Error(netMsg(e))}
+ if(r.status==401||r.status==403)throw new Error("OpenRouter rejected the API key. Open Profile → API Settings, enter a valid key and press Save.");
+ if(r.status==402)throw new Error("The OpenRouter account has no credits left for this model. Add credits or pick a cheaper model in Profile.");
+ if(r.status==429)throw new Error("Too many requests. Wait a few seconds and try again.");
+ if(!r.ok)throw new Error("The AI service returned an error (HTTP "+r.status+"). Try another model in Profile.");
+ const d=await r.json(),t=d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content;
+ if(!t)throw new Error("The model returned an empty answer. Try again or pick another model.");
+ return typeof t=="string"?t:t.map(x=>x.text||"").join("")}
+
+/* ---------- AI search ---------- */
+function bubble(cls,t){const d=document.createElement("div");d.className="msg "+cls;d.textContent=t;$("chat").appendChild(d);$("chat").scrollTop=1e9;return d}
+async function ask(){const q=$("q").value.trim();if(!q)return;$("q").value="";bubble("u",q);
+ const w=bubble("a","Thinking…");$("ask").disabled=true;
+ try{w.textContent=await callAI([{role:"system",content:"You are SiteGuard AI, a construction site safety assistant. Provide clear, practical and easy-to-understand safety guidance for construction workers. Explain hazards, preventive measures, PPE requirements and emergency precautions. Never encourage unsafe activities. For emergencies, instruct workers to follow site emergency procedures and contact their supervisor or emergency services."},{role:"user",content:q}],1000)}
+ catch(e){w.className="msg e";w.textContent=e.message}
+ finally{$("ask").disabled=false}}
+$("ask").onclick=ask;$("q").onkeydown=e=>{if(e.key=="Enter")ask()};
+
+const SOL={"Fall from Height":["Stop work and keep people away from the edge","Install guardrails, toe boards or nets","Wear a harness tied to a tested anchor"],"Electrical":["Do not touch the source – isolate power if trained","Apply lock-out/tag-out and warning signs","Replace damaged cables; use RCD protection"],"Struck-by":["Barricade the swing and travel zone","Use a banksman and clear signals","Check guards and reverse alarms on plant"],"Structural":["Evacuate the area immediately","Tell your supervisor and the engineer","Add temporary shoring before anyone returns"],"Manual":["Stop and plan the lift","Use trolleys, hoists or a team lift","Keep the load close and avoid twisting"],"Noise":["Wear ear defenders in the marked zone","Move noisy tools away or enclose them","Rotate crews to limit exposure time"],"Dust":["Wet the material or fit extraction","Wear a fitted FFP3 respirator","Ventilate and clean with a vacuum, not a brush"],"Fire":["Raise the alarm and use the exit route","Remove fuel and ignition sources","Store chemicals in labelled, approved cabinets"]};
+const solFor=c=>SOL[Object.keys(SOL).find(k=>c.startsWith(k))]||[];
+/* ---------- hazards ---------- */
+let selCat="";
+function renderHazards(){const f=$("hs").value.toLowerCase(),L=HC.filter(h=>h[0].toLowerCase().includes(f));
+ $("hcats").innerHTML=L.map(h=>`<div class="card hc ${h[0]==selCat?"on":""}" data-c="${h[0]}"><div class="ic">${h[1]}</div>${h[0]}</div>`).join("");$("hempty").style.display=L.length?"none":"block";
+ document.querySelectorAll(".hc").forEach(c=>c.onclick=()=>{selCat=c.dataset.c;$("fh").textContent=selCat;$("hform").style.display="block";
+  renderHazards();if($("fp").getAttribute("src"))analyze();else $("hform").scrollIntoView({behavior:"smooth"})});
+ $("rl2").innerHTML=S.reports.length?`<table><tr><th>ID</th><th>Title</th><th>Risk</th><th>Status</th><th></th></tr>${S.reports.map((r,i)=>`<tr><td>${esc(r.id)}</td><td>${esc(r.title)}</td><td><span class="tag ${r.risk}">${r.risk}</span></td><td><span class="tag ${r.status.split(" ")[0]}">${r.status}</span></td><td><button class="btn g s" data-v="${i}">View</button></td></tr>`).join("")}</table>`:"<div class='mu'>No reports yet. Pick a category above to file your first report.</div>";
+ document.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{const r=S.reports[b.dataset.v];modal(`<h3>${esc(r.id)}</h3><p><b>${esc(r.title)}</b><br>${esc(r.cat)} · ${esc(r.loc)} · ${esc(r.dt)}</p><p>${esc(r.desc)}</p><p class="mu">Action taken: ${esc(r.act||"None recorded")}</p>${r.img?`<img src="${r.img}" style="max-width:100%;border-radius:8px">`:""}${r.ai?aiHtml(r.ai):""}<p><span class="tag ${r.risk}">${r.risk}</span> <span class="tag ${r.status.split(" ")[0]}">${r.status}</span></p><button class="btn" onclick="closeM()">Close</button>`)})}
+$("hs").oninput=renderHazards;
+/* ---------- photo upload + AI analysis ---------- */
+let curAi=null,aiRun=0;
+const SYS_IMG='You are SiteGuard AI, an experienced construction site safety inspector. The worker has selected one hazard type. STEP 1: look at the photo and decide whether it shows a work situation, equipment or condition that belongs to that selected hazard type (it still matches if the hazard is well controlled). Judge strictly by what is really visible. If it does not match, reply with ONLY {"matches_selected":false}. STEP 2 (only when it matches): describe only what you can actually see and reply with ONLY a JSON object (no markdown) in this shape: {"matches_selected":true,"title":"short hazard title, max 8 words","summary":"2-4 plain sentences: what the scene shows and why it is or is not dangerous","risk":"Low|Medium|High|Critical","findings":["each specific unsafe condition, missing protection or good practice you can see, with where it is in the photo"],"immediate_action":"one sentence on what to do right now","solutions":["clear corrective steps, most important first"],"ppe":["PPE needed for this situation"],"prevention":["how to stop it happening again"]}. Use simple language a site worker understands. Never suggest unsafe actions.';
+const rawURL=f=>new Promise((ok,no)=>{const r=new FileReader();r.onload=()=>{let d=r.result;if(!/^data:image\//.test(d)){const e=(f.name.split(".").pop()||"jpeg").toLowerCase().replace("jpg","jpeg").replace("svg","svg+xml");d=d.replace(/^data:[^;,]*/,"data:image/"+e)}ok(d)};r.onerror=no;r.readAsDataURL(f)});
+const loadScript=u=>new Promise((ok,no)=>{const x=document.createElement("script");x.src=u;x.onload=ok;x.onerror=no;document.head.appendChild(x)});
+function drawShrink(blob){return new Promise((ok,no)=>{const u=URL.createObjectURL(blob),im=new Image();
+ im.onload=()=>{URL.revokeObjectURL(u);const W=im.naturalWidth||im.width||1024,H=im.naturalHeight||im.height||1024,k=Math.min(1,1280/Math.max(W,H)),w=Math.max(1,Math.round(W*k)),h=Math.max(1,Math.round(H*k)),c=document.createElement("canvas");
+  c.width=w;c.height=h;const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,w,h);g.drawImage(im,0,0,w,h);let q=.82,d=c.toDataURL("image/jpeg",q);while(d.length>6e5&&q>.4){q-=.1;d=c.toDataURL("image/jpeg",q)}ok(d)};
+ im.onerror=()=>{URL.revokeObjectURL(u);no(new Error("decode"))};im.src=u})}
+async function shrink(file){
+ try{return await drawShrink(file)}catch(e){}
+ if(/hei[cf]/i.test(file.type+" "+file.name)){try{if(!window.heic2any)await loadScript("https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js");
+  let b=await window.heic2any({blob:file,toType:"image/jpeg",quality:.85});if(Array.isArray(b))b=b[0];return await drawShrink(b)}catch(e){}}
+ return rawURL(file)}
+function parseAi(t){const L=x=>Array.isArray(x)?x.map(String).filter(Boolean):(x?[String(x)]:[]);
+ try{const j=JSON.parse(t.slice(t.indexOf("{"),t.lastIndexOf("}")+1));
+  return{match:j.matches_selected!==false,title:String(j.title||"").slice(0,80),summary:String(j.summary||""),risk:["Low","Medium","High","Critical"].includes(j.risk)?j.risk:"Medium",findings:L(j.findings),immediate:String(j.immediate_action||""),solutions:L(j.solutions),ppe:L(j.ppe),prevention:L(j.prevention)}}
+ catch(e){return{raw:t.trim()}}}
+const MISMSG=`<div class="aimis">THIS IMAGE CAN'T BE MATCH WITH THIS TYPE OF PROBLEM. FOR THIS PROBLEM SELECT RIGHT HAZARD OPTION.</div>`;
+function aiHtml(a){const L=x=>x.map(i=>`<li>${esc(i)}</li>`).join("");
+ if(a.match===false)return MISMSG;
+ if(a.raw)return`<div class="aipanel"><h4>AI analysis</h4><div style="white-space:pre-wrap;font-size:14px">${esc(a.raw)}</div></div>`;
+ return`<div class="aipanel"><h4>🔍 Analysis result</h4><p style="margin:0 0 8px;font-size:14px;line-height:1.55">${esc(a.summary)}</p>${a.findings.length?`<b>What the AI sees</b><ul>${L(a.findings)}</ul>`:""}</div>
+ <div class="aipanel so"><h4>✅ Solution</h4>${a.immediate?`<div class="aifirst" style="margin:0 0 10px"><b>Do this first:</b> ${esc(a.immediate)}</div>`:""}${a.solutions.length?`<b>Corrective steps</b><ol>${L(a.solutions)}</ol>`:""}${a.ppe.length?`<div class="aisec"><b>PPE needed</b><ul>${L(a.ppe)}</ul></div>`:""}${a.prevention.length?`<div class="aisec"><b>Prevent it next time</b><ul>${L(a.prevention)}</ul></div>`:""}</div>`}
+function aiState(busy,t){$("aisp").style.display=busy?"":"none";$("aist").textContent=t;$("aire").disabled=busy}
+async function analyze(){const p=$("fp");if(!p.getAttribute("src"))return;const run=++aiRun;curAi=null;
+ $("aib").style.display="block";$("aires").innerHTML="";$("airk").style.display="none";
+ if(!selCat){aiState(false,"Choose a hazard type");$("aires").innerHTML=`<div class="aipanel"><p style="margin:0;font-size:14px">Select a hazard type above. The AI will then check that your photo matches it and analyze it.</p></div>`;return}
+ aiState(true,"Checking the photo against \""+selCat+"\"…");
+ try{const t=await callAI([{role:"system",content:SYS_IMG},{role:"user",content:[{type:"text",text:`Selected hazard type: ${selCat}. Worker note: ${$("fd").value.trim()||"none"}. Check the photo against the selected hazard type, then analyze it if it matches.`},{type:"image_url",image_url:{url:p.src}}]}],1500,.2);
+  if(run!=aiRun)return;curAi=parseAi(t);
+  if(curAi.match===false){aiState(false,"Photo does not match");$("aires").innerHTML=MISMSG;return}
+  aiState(false,"Analysis complete");
+  if(!curAi.raw){$("airk").className="tag "+curAi.risk;$("airk").textContent=curAi.risk+" risk";$("airk").style.display=""}
+  $("aires").innerHTML=aiHtml(curAi)}
+ catch(e){if(run!=aiRun)return;aiState(false,"Analysis failed");$("aires").innerHTML=`<div class="err" style="margin-top:8px">${esc(e.message)}</div>`}}
+$("aire").onclick=analyze;
+$("fi").onchange=async()=>{const f=$("fi").files[0],p=$("fp");$("fe").textContent="";aiRun++;curAi=null;
+ if(!f){p.style.display="none";$("aib").style.display="none";return}
+ try{let d;try{d=await shrink(f)}catch(x){d=await rawURL(f)}p.onerror=()=>{p.style.display="none"};p.src=d;p.style.display="block";analyze()}
+ catch(e){$("fi").value="";p.style.display="none";$("aib").style.display="none";$("fe").textContent="This file could not be read. Pick it again."}};
+$("hf").onsubmit=e=>{e.preventDefault();const p=$("fp");
+ if(!$("fi").files[0]||!p.src)return $("fe").textContent="Upload a photo of the hazard first.";
+ if(!selCat)return $("fe").textContent="Select a hazard type first.";
+ if(curAi&&curAi.match===false)return $("fe").textContent="This photo does not match the selected hazard. Select the right hazard option or upload a matching photo.";
+ const cat=selCat,a=curAi&&!curAi.raw?curAi:null,n=new Date(),id="HZ-"+String(n.getFullYear()).slice(2)+String(n.getMonth()+1).padStart(2,"0")+String(n.getDate()).padStart(2,"0")+"-"+Math.random().toString(36).slice(2,6).toUpperCase();
+ S.reports.unshift({id,cat,title:(a&&a.title)||cat,desc:$("fd").value.trim()||(a?a.summary:"No description added."),loc:"Not specified",risk:a?a.risk:"Medium",dt:n.toLocaleString(),act:a?a.immediate:"",img:p.src,status:"Pending",ai:a});
+ const rep=S.reports[0];aiRun++;curAi=null;$("fe").textContent="";$("hf").reset();p.style.display="none";p.removeAttribute("src");$("aib").style.display="none";selCat="";$("fh").textContent="Report a Hazard";
+ notify("Report "+id+" submitted (Pending)");toast("Report submitted. ID: "+id+" – status Pending");render();
+ modal(`<h3>Report ${id} submitted</h3><img src="${rep.img}" style="max-width:100%;max-height:220px;border-radius:8px"><p><span class="tag ${rep.risk}">${rep.risk} risk</span> <span class="mu">Status: Pending</span></p>${a?aiHtml(a):`<p class="mu">Recommended first actions:</p><ol>${solFor(cat).map(x=>`<li>${x}</li>`).join("")}</ol>`}<p class="mu">Follow your site emergency procedure and tell your supervisor for any critical risk.</p><button class="btn" onclick="closeM()">Got it</button>`)};
+
+/* ---------- my reports ---------- */
+function renderYear(){const y=$("yr").value,D=YD[y],cur=y=="2026",tot=a=>a.reduce((x,v)=>x+v,0);
+ const hz=D.hz.slice(),mi=new Date().getMonth();if(cur)hz[mi]+=S.reports.length;
+ const m=D.att.filter(x=>x).length,perf=Math.round(tot(D.pf)/m);
+ $("ysum").innerHTML=[["Working days",tot(D.att)+" of "+m*26],["Attendance",Math.round(tot(D.att)/(m*26)*100)+"%"],["Tasks completed",tot(D.tk)],["Hazards reported",tot(hz)],["Training sessions",cur?S.talks.length+8:24],["Performance score",perf+"/100"]].map(x=>`<div class="card stat"><b>${x[1]}</b><span>${x[0]}</span></div>`).join("");
+ bars("c1",D.att,26);bars("c2",D.tk,50);bars("c3",D.pf,100,"%");bars("c4",hz,Math.max(...hz,3));
+ $("ph").innerHTML=D.att.map((a,i)=>a?`<tr><td>${MON[i]}</td><td>${a}/26</td><td>${D.tk[i]}</td><td>${D.pf[i]}%</td><td>${D.pf[i]>=88?"Excellent":D.pf[i]>=83?"Good":"Satisfactory"}</td></tr>`:"").join("");
+ const pend=S.leaves.filter(l=>l.st=="Pending").length;
+ $("lv").innerHTML=`<table><tr><td>Annual allowance</td><td>18 days</td></tr><tr><td>Used</td><td>${S.used}</td></tr><tr><td>Remaining</td><td>${18-S.used}</td></tr><tr><td>Pending requests</td><td>${pend}</td></tr></table>`+S.leaves.map(l=>`<div class="mu">${esc(l.type)}: ${l.s} → ${l.e} (${l.st})</div>`).join("")}
+$("yr").onchange=renderYear;
+$("al").onclick=()=>{modal(`<h3>Apply for Leave</h3><form id="lvf"><label>Leave Type</label><select id="lt"><option>Casual</option><option>Sick</option><option>Annual</option></select><label>Start Date</label><input type="date" id="ls"><label>End Date</label><input type="date" id="le2"><label>Reason</label><textarea id="lre" rows="2"></textarea><div class="err" id="lerr"></div><button class="btn">Submit Request</button> <button type="button" class="btn g" onclick="closeM()">Cancel</button></form>`);
+ $("lvf").onsubmit=e=>{e.preventDefault();const s=$("ls").value,en=$("le2").value,r=$("lre").value.trim();
+  if(!s||!en||r.length<5)return $("lerr").textContent="Fill in both dates and a reason.";if(en<s)return $("lerr").textContent="End date must not be before start date.";
+  S.leaves.push({type:$("lt").value,s,e:en,reason:r,st:"Pending"});save();closeM();toast("Leave request submitted.");notify("Leave request sent");render()}};
+
+/* ---------- toolbox talks ---------- */
+function renderTalks(){const f=$("ts").value.toLowerCase(),c=$("tc").value;$("tip").textContent=TIPS[new Date().getDate()%TIPS.length];
+ $("tp").textContent=`${S.talks.length} of 10 completed`;$("tpb").style.width=S.talks.length*10+"%";
+ const L=TK.map((t,i)=>[t,i]).filter(x=>(!c||x[0][1]==c.replace("&amp;","&"))&&x[0][0].toLowerCase().includes(f));
+ $("tg").innerHTML=L.length?L.map(([t,i])=>{const d=S.talks.includes(i);return`<div class="card"><span class="tag Under">${t[1]}</span> <span class="mu">⏱ ${t[7]} min read</span><h3 style="margin-top:8px">${t[0]}</h3><p class="mu">${t[2]}</p><button class="btn g s" data-r="${i}">Read More</button> <button class="btn s" ${d?"disabled style='background:var(--ok)'":""} data-d="${i}">${d?"✔ Completed":"Mark as Completed"}</button></div>`}).join(""):"<div class='mu'>No talks match your filter.</div>";
+ document.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{const t=TK[b.dataset.r];modal(`<h3>${t[0]}</h3><p>${t[2]}</p><b>Safety instructions</b><ul>${t[3].map(x=>`<li>${x}</li>`).join("")}</ul><b>Precautions</b><p>${t[4]}</p><b>Required PPE</b><p>${t[5]}</p><b>Checklist</b>${t[6].map(x=>`<label class="task"><input type="checkbox"><span>${x}</span></label>`).join("")}<br><button class="btn" onclick="closeM()">Close</button>`)});
+ document.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{S.talks.push(+b.dataset.d);notify("Completed: "+TK[b.dataset.d][0]);toast("Toolbox talk completed.");render()})}
+$("ts").oninput=renderTalks;$("tc").onchange=renderTalks;
+
+/* ---------- profile ---------- */
+function renderProfile(){const u=S.user;$("pd").innerHTML=[["Full name",u.name],["Employee ID",u.id],["Email",u.email],["Phone",u.phone],["Position",u.pos],["Department",u.dept],["Site",u.site],["Joined",u.join],["Emergency contact",u.emerg]].map(x=>`<tr><td class="mu">${x[0]}</td><td>${esc(x[1])}</td></tr>`).join("");
+ $("th").value=S.theme;$("nt").checked=S.notif;
+ if(!$("ak").dataset.f){$("ak").value=getKey();$("ak").dataset.f=1}if(!$("ast").dataset.set)setApi("Not tested yet","#999")
+ if(S.model&&![...$("am").options].some(o=>o.value==S.model))$("am").add(new Option(S.model,S.model));if(S.model)$("am").value=S.model}
+$("th").onchange=()=>{S.theme=$("th").value;save();render()};$("nt").onchange=()=>{S.notif=$("nt").checked;save()};$("lg").onchange=()=>toast("Language preference saved (interface text is English in this demo).");
+$("cp").onclick=()=>{const p=$("np1").value;if(p.length<6)return toast("Password must have at least 6 characters.");S.user.pass=p;save();$("np1").value="";toast("Demo password changed.")};
+$("rs").onclick=()=>{if(confirm("Reset all demo data? This clears reports, tasks, talks and leave requests.")){localStorage.removeItem(SK);sessionStorage.clear();location.reload()}};
+$("ep").onclick=()=>{const u=S.user;modal(`<h3>Edit Profile</h3><form id="pf"><label>Full name</label><input id="e1" value="${esc(u.name)}"><label>Email</label><input id="e2" type="email" value="${esc(u.email)}"><label>Phone</label><input id="e3" value="${esc(u.phone)}"><label>Emergency contact</label><input id="e4" value="${esc(u.emerg)}"><div class="err" id="pe"></div><button class="btn">Save changes</button> <button type="button" class="btn g" onclick="closeM()">Cancel</button></form>`);
+ $("pf").onsubmit=e=>{e.preventDefault();if(!$("e1").value.trim()||!/\S+@\S+\.\S+/.test($("e2").value))return $("pe").textContent="Enter a name and a valid email.";
+  Object.assign(S.user,{name:$("e1").value.trim(),email:$("e2").value.trim(),phone:$("e3").value.trim(),emerg:$("e4").value.trim()});save();closeM();toast("Profile updated.");render()}};
+
+/* ---------- OpenRouter configuration ---------- */
+function setApi(t,c,err){$("ast").textContent=t;$("ast").dataset.set=1;$("adot").style.background=c;$("aerr").textContent=err||""}
+function netMsg(e){return(navigator.onLine===false?"Your device is offline. Connect to the internet and try again.":"The browser could not reach openrouter.ai ("+(e&&e.name||"error")+": "+(e&&e.message||"blocked")+"). If you are viewing this page inside a preview window, download index.html and open it directly in Chrome or Edge. Otherwise check for a VPN, firewall or ad-blocker blocking openrouter.ai.")}
+async function testKey(){const k=$("ak").value.trim()||getKey();setApi("Testing…","#e9a800");$("alt").textContent="";
+ const done=(t,c,e)=>{setApi(t,c,e);$("alt").textContent="Last test: "+new Date().toLocaleTimeString()};
+ try{let r=await fetch(OR_URL+"/auth/key",{headers:{Authorization:"Bearer "+k}});
+  if(r.status==401||r.status==403)return done("Not connected – invalid key","var(--rd)","OpenRouter rejected this key. Check it and press Save.");
+  if(r.ok){const d=((await r.json().catch(()=>({})))||{}).data||{};
+   if(d.limit_remaining!=null&&d.limit_remaining<=0)return done("Connected – no credits left","#e9a800","The key works but its credit limit is used up.");
+   return done("Connected","var(--ok)")}
+  r=await fetch(OR_URL+"/chat/completions",{method:"POST",headers:{Authorization:"Bearer "+k,"Content-Type":"application/json"},body:JSON.stringify({model:S.model||"google/gemini-2.0-flash-001",messages:[{role:"user",content:"Reply OK"}],max_tokens:5})});
+  if(r.status==401||r.status==403)return done("Not connected – invalid key","var(--rd)","OpenRouter rejected this key.");
+  if(r.status==402)return done("Connected – no credits","#e9a800","The key works but the account has no credits for this model.");
+  if(r.ok)return done("Connected","var(--ok)");
+  done("Not connected","var(--rd)","OpenRouter returned HTTP "+r.status+".")}
+ catch(e){done("Not connected","var(--rd)",netMsg(e))}}
+$("ash").onclick=()=>{const p=$("ak");p.type=p.type=="password"?"text":"password";$("ash").textContent=p.type=="password"?"Show":"Hide"};
+$("asv").onclick=async()=>{const k=$("ak").value.trim();if(!k)return setApi("No key entered","var(--rd)","Paste your OpenRouter API key first.");
+ try{localStorage.setItem("sg_key",k)}catch(e){}MP=null;toast("API key saved.");await testKey();loadModels()};
+$("atst").onclick=testKey;
+$("arm").onclick=async()=>{try{localStorage.removeItem("sg_key")}catch(e){}$("ak").value=DEF_KEY;MP=null;toast("Default key restored.");await testKey();loadModels()};
+$("am").onchange=()=>{S.model=$("am").value;save();toast("Model saved.")};
+
+/* ---------- modal & init ---------- */
+function modal(h){$("mb").innerHTML=h;$("m").classList.add("on")}function closeM(){$("m").classList.remove("on")}
+$("m").onclick=e=>{if(e.target==$("m"))closeM()};
+function init(){render();loadModels();testKey()}
+/* The login screen is always shown first; press any key to enter. */
+</script></body></html>
